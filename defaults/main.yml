@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-role-virtualbox-guest
+virtualbox_version: 5.0.26
+iso_checksum: "sha256:7458ee5a7121a7d243fd6a7528ba427945d9120c5efc7cd75b3951fb01f09c59"
+iso_download_path: "/opt"
+iso_mount_path: /mnt/virtualbox
+virtualbox_iso_path: "{{iso_download_path}}/VBoxGuestAdditions_{{virtualbox_version}}.iso"
