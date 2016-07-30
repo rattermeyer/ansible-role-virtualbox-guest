@@ -24,13 +24,6 @@
       fstype: iso9660
       state: mounted
 
-  - name: Find out kernel version
-    shell: uname -r
-    register: kernel
-    changed_when: kernel.stdout == ""
-
-  - debug: msg="{{kernel}}"
-
   - name: Install necessary packages for compiling
     apt:
       name: "{{ item }}"
@@ -43,7 +36,7 @@
     - dkms
     - gcc
     - make
-    - "linux-headers-{{ kernel.stdout }}"
+    - "linux-headers-{{ ansible_kernel }}"
 
   - name: Register currently installed virtualbox packages
     shell: dpkg --list | grep virtualbox | awk '{ print $2}'
