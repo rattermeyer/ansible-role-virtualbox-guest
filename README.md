@@ -1,5 +1,5 @@
 virtualbox-guest
-=========
+================
 
 This role installs the virtualbox guest additions.
 It removes already installed version, if the desired version is different from the currently installed one.
@@ -14,7 +14,7 @@ Role Variables
 
 The variables that can be passed to this role and a brief description about them are as follows.
 
-```
+```yaml
 # this version determines the version of the guest additions that will be installed
 virtualbox_version: 5.0.26
 # the checksum of the iso fil
@@ -30,7 +30,7 @@ virtualbox_iso_path: "{{iso_download_path}}/VBoxGuestAdditions_{{virtualbox_vers
 Example Playbook
 ----------------
 
-```
+```yaml
 - hosts: localhost
   remote_user: root
   roles:
@@ -46,3 +46,7 @@ Author Information
 ------------------
 
 Richard Attermeyer
+
+* [Blog](http://www.rattermyer.de)
+* [Github](https://github.com/rattermeyer)
+* [Twitter](https://twitter.com/rattermeyer)
