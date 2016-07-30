@@ -34,7 +34,7 @@ Example Playbook
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-role-virtualbox-guest
+    - rattermeyer.virtualbox-guest
 ```
 
 License
