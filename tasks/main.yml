@@ -1,4 +1,11 @@
 ---
+
+- name: assure {{iso_download_path}} exists
+  file:
+    path: "{{iso_download_path }}"
+    state: directory
+    mode: 0755
+
 # tasks file for ansible-role-virtualbox-guest
 - name: Check if (the requested version of) vboxguestadditions is installed
   shell: modinfo vboxguest 2>/dev/null|awk '/^version/{print $2}'
@@ -79,7 +86,7 @@
       - dkms
       - gcc
       - make
-      - "linux-headers-{{ kernel.stdout }}"
+      - "linux-headers-{{ ansible_kernel }}"
     when: virtualbox_pkg_remove is defined and virtualbox_pkg_remove
 
   - name: Remove build logfiles, artefacts and ISO files
