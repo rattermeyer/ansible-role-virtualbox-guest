@@ -4,7 +4,7 @@ virtualbox_version: 5.0.26
 # the checksum of the iso fil
 iso_checksum: "sha256:7458ee5a7121a7d243fd6a7528ba427945d9120c5efc7cd75b3951fb01f09c59"
 # specifiy where the downloaded iso file will be placed
-iso_download_path: "/opt"
+iso_download_path: "/opt/vboxguest"
 # mount path where iso will mounted
 iso_mount_path: /mnt/virtualbox
 # easier path based on above variables
