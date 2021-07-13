@@ -1,8 +1,8 @@
 ---
 
-- name: assure {{iso_download_path}} exists
+- name: assure {{ iso_download_path}} exists
   file:
-    path: "{{iso_download_path }}"
+    path: "{{ iso_download_path }}"
     state: directory
     mode: 0755
 
@@ -15,18 +15,18 @@
 
 - block:
   - name: Check if the ISO file is present on guest
-    stat: path="{{virtualbox_iso_path}}"
+    stat: path="{{ virtualbox_iso_path }}"
     register: file_path
     ignore_errors: yes
   - name: Download iso, if not present on guest
     get_url:
       url: http://download.virtualbox.org/virtualbox/{{ virtualbox_version}}/VBoxGuestAdditions_{{virtualbox_version}}.iso
-      dest: "{{virtualbox_iso_path}}"
-      checksum: "{{iso_checksum}}"
+      dest: "{{ virtualbox_iso_path }}"
+      checksum: "{{ iso_checksum }}"
   - name: Loopback mount iso
     mount:
-      name: "{{iso_mount_path}}"
-      src: "{{virtualbox_iso_path}}"
+      name: "{{ iso_mount_path }}"
+      src: "{{ virtualbox_iso_path }}"
       opts: "ro,loop"
       fstype: iso9660
       state: mounted
@@ -51,28 +51,28 @@
 
   - name: remove installed packages
     apt:
-      name: "{{item}}"
+      name: "{{ item }}"
       state: absent
-    with_items: "{{installed_packages.stdout_lines}}"
+    with_items: "{{ installed_packages.stdout_lines }}"
 
   - name: Try uninstall
-    shell: "/bin/bash {{iso_mount_path}}/VBoxLinuxAdditions.run uninstall --force"
+    shell: "/bin/bash {{ iso_mount_path }}/VBoxLinuxAdditions.run uninstall --force"
     ignore_errors: yes
 
   - name: Build and install VBoxGuestAdditions from file (without x11)
-    shell: "/bin/bash {{iso_mount_path}}/VBoxLinuxAdditions.run --nox11"
+    shell: "/bin/bash {{ iso_mount_path }}/VBoxLinuxAdditions.run --nox11"
     when: (virtualbox_x11 is undefined) or (not virtualbox_x11)
     ignore_errors: yes
 
   - name: Build and install VBoxGuestAdditions from file (with x11)
-    shell: "/bin/bash {{iso_mount_path}}/VBoxLinuxAdditions.run"
+    shell: "/bin/bash {{ iso_mount_path }}/VBoxLinuxAdditions.run"
     when: (virtualbox_x11 is defined) and virtualbox_x11
     ignore_errors: yes
 
   - name: Unmount iso
     mount:
-      name: "{{iso_mount_path}}"
-      src: "{{virtualbox_iso_path}}"
+      name: "{{ iso_mount_path }}"
+      src: "{{ virtualbox_iso_path }}"
       opts: "ro,loop"
       fstype: iso9660
       state: absent
